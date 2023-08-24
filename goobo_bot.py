@@ -13,24 +13,6 @@ class MyClient(discord.Client):
     async def on_ready(self):
         print(f'Logged in as {self.user.name}')
 
-    async def on_message(self, message):
-        if message.author == self.user:
-            return  # Ignore messages sent by the bot itself
-
-        content_lower = message.content.lower()
-
-        if self.link_emote_pattern.search(content_lower) and not any(
-            isinstance(mention, discord.User) or isinstance(mention, discord.Member)
-            for mention in message.mentions
-        ):
-            author_id = message.author.id
-            if author_id not in self.user_just_counts:
-                self.user_just_counts[author_id] = 0
-            self.user_just_counts[author_id] += 1
-            bot_name = f'**{message.author.name}**'
-            await message.channel.send(
-                f'{bot_name} Just Count: {self.user_just_counts[author_id]}'
-            )
 
 intents = discord.Intents.default()
 intents.message_content = True
