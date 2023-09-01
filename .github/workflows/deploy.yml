@@ -2,8 +2,8 @@ name: Test Workflow Trigger
 
 on:
   push:
-    paths:
-      - '.github/workflows/deploy.yml'
+    branches:
+      - main
 
 jobs:
   test:
