@@ -1,4 +1,4 @@
-name: Test Workflow Trigger
+name: Deploy bot to Azure
 
 on:
   push:
@@ -6,12 +6,17 @@ on:
       - main
 
 jobs:
-  test:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repo
       uses: actions/checkout@v2
 
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+        
     - name: Print a message
       run: echo "Workflow triggered successfully!"
