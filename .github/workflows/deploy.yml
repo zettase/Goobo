@@ -22,18 +22,18 @@ jobs:
         source: "./"
         target: "/home/${{ secrets.VM_USER }}/goobo-bot"
 
-    - name: Stop existing bot instance
-      uses: appleboy/ssh-action@v1.0.0
-      with:
-        host: ${{ secrets.VM_HOST }}
-        username: ${{ secrets.VM_USER }}
-        key: ${{ secrets.GOOBO_SSH_KEY }}
-        port: ${{ secrets.PORT || '22' }}
-        script: |
-          cd /home/***/goobo-bot
-          pgrep -f goobo_bot.py && { (pkill -f goobo_bot.py &); echo "Bot instance stopped."; } || echo "No bot instance found to stop."
-          sleep 2
-          exit 0
+    # - name: Stop existing bot instance
+      # uses: appleboy/ssh-action@v1.0.0
+      # with:
+        # host: ${{ secrets.VM_HOST }}
+        # username: ${{ secrets.VM_USER }}
+        # key: ${{ secrets.GOOBO_SSH_KEY }}
+        # port: ${{ secrets.PORT || '22' }}
+        # script: |
+          # cd /home/***/goobo-bot
+          # pgrep -f goobo_bot.py && { (pkill -f goobo_bot.py &); echo "Bot instance stopped."; } || echo "No bot instance found to stop."
+          # sleep 2
+          # exit 0
 
     - name: Deploy and start new bot instance
       uses: appleboy/ssh-action@v1.0.0
