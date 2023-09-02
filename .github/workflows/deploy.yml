@@ -10,12 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Print secrets
-      run: |
-        echo "VM_USER: ${{ secrets.VM_USER }}"
-        echo "VM_HOST: ${{ secrets.VM_HOST }}"
-        # DO NOT do this with your SSH private key or any sensitive secrets.
-        echo "GOOBO_SSH_KEY: ${{ secrets.GOOBO_SSH_KEY }}"
     - name: Checkout repository
       uses: actions/checkout@v2
 
