@@ -8,6 +8,7 @@ class MyClient(discord.Client):
     
     async def on_ready(self):
         print(f'Logged in as {self.user.name}')
+        print('test!')
 
 
 intents = discord.Intents.default()
