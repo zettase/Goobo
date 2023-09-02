@@ -28,7 +28,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
+        port: ${{ secrets.PORT || '22' }}
         script: |
           cd /home/***/goobo-bot
           pkill -f goobo_bot.py
@@ -39,7 +39,7 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
+        port: ${{ secrets.PORT || '22' }}
         script: |
           cd /home/***/goobo-bot
           nohup python3 goobo_bot.py > bot.log 2>&1 &
