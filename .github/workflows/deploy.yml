@@ -25,9 +25,9 @@ jobs:
     - name: Stop existing bot instance
       uses: appleboy/ssh-action@v0.1.5
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
+        host: ${{ secrets.VM_HOST }}
+        username: ${{ secrets.VM_USER }}
+        key: ${{ secrets.GOOBO_SSH_KEY }}
         port: ${{ secrets.PORT || '22' }}
         script: |
           cd /home/***/goobo-bot
@@ -36,9 +36,9 @@ jobs:
     - name: Deploy and start new bot instance
       uses: appleboy/ssh-action@v0.1.5
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
+        host: ${{ secrets.VM_HOST }}
+        username: ${{ secrets.VM_USER }}
+        key: ${{ secrets.GOOBO_SSH_KEY }}
         port: ${{ secrets.PORT || '22' }}
         script: |
           cd /home/***/goobo-bot
