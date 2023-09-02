@@ -18,7 +18,7 @@ jobs:
       with:
         host: ${{ secrets.VM_HOST }}
         username: ${{ secrets.VM_USER }}
-        key: ${{ secrets.VM_SSH_KEY }}
+        key: ${{ secrets.GOOBO_SSH_KEY }}
         source: "./"
         target: "/home/${{ secrets.VM_USER }}/goobo-bot"
 
@@ -27,7 +27,7 @@ jobs:
       with:
         host: ${{ secrets.VM_HOST }}
         username: ${{ secrets.VM_USER }}
-        key: ${{ secrets.VM_SSH_KEY }}
+        key: ${{ secrets.GOOBO_SSH_KEY }}
         script: |
           cd /home/${{ secrets.VM_USER }}/goobo-bot
           pkill -f goobo_bot.py  # This will kill the current running instance
