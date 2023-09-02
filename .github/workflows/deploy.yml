@@ -31,7 +31,7 @@ jobs:
         port: ${{ secrets.PORT || '22' }}
         script: |
           cd /home/***/goobo-bot
-          pkill -f goobo_bot.py
+          pgrep -f goobo_bot.py && pkill -f goobo_bot.py || echo "No bot instance found to stop."
 
     - name: Deploy and start new bot instance
       uses: appleboy/ssh-action@v0.1.5
