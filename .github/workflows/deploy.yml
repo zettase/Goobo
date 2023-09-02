@@ -22,13 +22,24 @@ jobs:
         source: "./"
         target: "/home/${{ secrets.VM_USER }}/goobo-bot"
 
-    - name: SSH into VM and restart the Python script
+    - name: Stop existing bot instance
       uses: appleboy/ssh-action@v0.1.5
       with:
-        host: ${{ secrets.VM_HOST }}
-        username: ${{ secrets.VM_USER }}
-        key: ${{ secrets.GOOBO_SSH_KEY }}
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
         script: |
-          cd /home/${{ secrets.VM_USER }}/goobo-bot
-          pkill -f goobo_bot.py  # This will kill the current running instance
-          nohup python3 goobo_bot.py > bot.log 2>&1 &  # This will start the bot and write logs to bot.log
+          cd /home/***/goobo-bot
+          pkill -f goobo_bot.py
+
+    - name: Deploy and start new bot instance
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd /home/***/goobo-bot
+          nohup python3 goobo_bot.py > bot.log 2>&1 &
