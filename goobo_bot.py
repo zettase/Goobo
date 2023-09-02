@@ -8,11 +8,19 @@ class MyClient(discord.Client):
     
     async def on_ready(self):
         print(f'Logged in as {self.user.name}')
-        print('test!')
-
+        
+    async def on_message(self, message):
+        # Don't respond to bots
+        if message.author.bot:
+            return
+        
+        # Check if the message content matches "Hello Goobo"
+        if re.match(r'Hello Goobo', message.content, re.IGNORECASE):
+            await message.channel.send(f'Hello, {message.author.name}!')
 
 intents = discord.Intents.default()
 intents.message_content = True
+intents.messages = True  # This is important for the bot to be able to read messages
 
 # Create an instance of your bot and run it
 client = MyClient(intents=intents)
