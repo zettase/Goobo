@@ -1,27 +1,34 @@
-name: Deploy bot to Azure
+name: Deploy and Restart Bot
 
 on:
   push:
     branches:
-      - main
+      - main  # Adjust if your default branch is named differently
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
+    - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Copy repository content to VM
+      uses: appleboy/scp-action@v0.1.1
       with:
-        python-version: '3.x'
-        
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        
-    - name: Print a message
-      run: echo "Workflow triggered successfully!"
+        host: ${{ secrets.VM_HOST }}
+        username: ${{ secrets.VM_USER }}
+        key: ${{ secrets.VM_SSH_KEY }}
+        source: "./"
+        target: "/home/${{ secrets.VM_USER }}/goobo-bot"
+
+    - name: SSH into VM and restart the Python script
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: ${{ secrets.VM_HOST }}
+        username: ${{ secrets.VM_USER }}
+        key: ${{ secrets.VM_SSH_KEY }}
+        script: |
+          cd /home/${{ secrets.VM_USER }}/goobo-bot
+          pkill -f goobo_bot.py  # This will kill the current running instance
+          nohup python3 goobo_bot.py > bot.log 2>&1 &  # This will start the bot and write logs to bot.log
