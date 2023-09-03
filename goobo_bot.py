@@ -19,6 +19,9 @@ class MyClient(discord.Client):
             nickname = message.author.display_name
             await message.channel.send(f'Hello, {nickname}!')
 
+        if re.match(r'Beeboobee', message.content, re.IGNORECASE):
+            await message.channel.send(f'Beeboobee? That\'s what Turt is.')
+
 intents = discord.Intents.default()
 intents.message_content = True
 intents.messages = True  # This is important for the bot to be able to read messages
