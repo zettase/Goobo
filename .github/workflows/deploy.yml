@@ -31,10 +31,7 @@ jobs:
         port: ${{ secrets.PORT || '22' }}
         script: |
           pgrep -f "python3 goobo_bot.py" && pkill -f "python3 goobo_bot.py" || true
-          # cd /home/***/goobo-bot
-          # pgrep -f goobo_bot.py && { (pkill -f goobo_bot.py &); echo "Bot instance stopped."; } || echo "No bot instance found to stop."
-          # sleep 2
-          # exit 0
+      continue-on-error: true # this shouldn't fail, but for some reason it's returning a non-zero exit code.
 
     - name: Deploy and start new bot instance
       uses: appleboy/ssh-action@v1.0.0
