@@ -7,7 +7,7 @@ class Database:
     def __init__(self, db_name="GooboCluster"):
         password = os.environ.get('GOOBO_DB_PASSWORD')
         if not password:
-            raise ValueError("No password set in MONGO_DB_PASSWORD environment variable")
+            raise ValueError("No password set in GOOBO_DB_PASSWORD environment variable")
 
         self.client = pymongo.MongoClient(
             f"mongodb+srv://vargonian:{password}@goobocluster.fkg5wrq.mongodb.net/?retryWrites=true&w=majority")
