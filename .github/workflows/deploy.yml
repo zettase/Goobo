@@ -41,7 +41,6 @@ jobs:
         key: ${{ secrets.GOOBO_SSH_KEY }}
         port: ${{ secrets.PORT || '22' }}
         script: |
-          source ~/.bashrc
           cd /home/${{ secrets.VM_USER }}/goobo-bot
           pip3 install -r requirements.txt          
           nohup python3 goobo_bot.py > bot.log 2>&1 &
