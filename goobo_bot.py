@@ -4,6 +4,7 @@ import os
 from database import Database
 
 bot_token = os.environ.get("GOOBO_BOT_TOKEN")
+print(os.environ)
 database = Database()
 
 class MyClient(discord.Client):
