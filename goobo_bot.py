@@ -28,7 +28,6 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.messages = True  # This is important for the bot to be able to read messages
 
-print("What is happening?")
 phrase_count = database.get_phrase_count("user123", "Hello!")
 print(f"Phrase count: {phrase_count}")
 
