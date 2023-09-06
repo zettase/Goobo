@@ -43,4 +43,5 @@ jobs:
         script: |
           cd /home/***/goobo-bot
           pip3 install -r requirements.txt
+          env
           nohup python3 goobo_bot.py > bot.log 2>&1 &
