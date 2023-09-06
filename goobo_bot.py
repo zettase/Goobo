@@ -1,8 +1,10 @@
 import discord
 import re
 import os
+from database import Database
 
 bot_token = os.environ.get("GOOBO_BOT_TOKEN")
+database = Database()
 
 class MyClient(discord.Client):
     
@@ -26,6 +28,9 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.messages = True  # This is important for the bot to be able to read messages
 
+print(database.get_phrase_count("user123", "Hello!"))
+
 # Create an instance of your bot and run it
 client = MyClient(intents=intents)
 client.run(bot_token)
+database.close()
