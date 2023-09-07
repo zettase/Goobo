@@ -124,7 +124,8 @@ class Database:
                 'emoji': str(reaction.emoji),
                 'user_name': user.name,
                 'user_discriminator': user.discriminator
-            }
+            },
+            'timestamp': datetime.utcnow()  # Adding the timestamp here
         }
         collection.insert_one(data)
 
@@ -140,7 +141,8 @@ class Database:
                 'emoji': str(reaction.emoji),
                 'user_name': user.name,
                 'user_discriminator': user.discriminator
-            }
+            },
+            'timestamp': datetime.utcnow()  # Adding the timestamp here
         }
         collection.insert_one(data)
 
