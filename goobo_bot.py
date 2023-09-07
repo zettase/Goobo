@@ -1,6 +1,7 @@
 import discord
 import re
 import os
+
 from database import Database
 
 bot_token = os.environ.get("GOOBO_BOT_TOKEN")
@@ -10,8 +11,12 @@ class MyClient(discord.Client):
     
     async def on_ready(self):
         print(f'Logged in as {self.user.name}')
-        
+
     async def on_message(self, message):
+
+        # always store every message
+        database.store_message(message)
+
         # Don't respond to bots
         if message.author.bot:
             return
@@ -24,9 +29,26 @@ class MyClient(discord.Client):
         if re.match(r'Beeboobee', message.content, re.IGNORECASE):
             await message.channel.send(f'Beeboobee? That\'s what Turt is.')
 
+    async def on_message_edit(self, before, after):
+        database.handle_message_edit(before, after)
+
+    async def on_message_delete(self, message):
+        database.handle_message_delete(message)
+
+    async def on_reaction_add(self, reaction, user):
+        if user.bot:  # Ignore bot reactions
+            return
+        database.handle_reaction_add(reaction, user)
+
+    async def on_reaction_remove(self, reaction, user):
+        if user.bot:  # Ignore bot reactions
+            return
+        database.handle_reaction_remove(reaction, user)
+
 intents = discord.Intents.default()
 intents.message_content = True
 intents.messages = True  # This is important for the bot to be able to read messages
+intents.reactions = True
 
 # Create an instance of your bot and run it
 client = MyClient(intents=intents)
