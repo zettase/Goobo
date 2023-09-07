@@ -55,6 +55,24 @@ class Database:
         # Inserting the message into the database
         collection.insert_one(message_data)
 
+    def store_status_change(self, user_id, before, after):
+        collection = self.db['StatusChanges']
+        data = {
+            'user_id': user_id,
+            'before_status': {
+                'desktop': str(before.desktop_status),
+                'mobile': str(before.mobile_status),
+                'web': str(before.web_status)
+            },
+            'after_status': {
+                'desktop': str(after.desktop_status),
+                'mobile': str(after.mobile_status),
+                'web': str(after.web_status)
+            },
+            'timestamp': datetime.utcnow()
+        }
+        collection.insert_one(data)
+
     def handle_message_edit(self, before, after):
         """
         Update the database with edited message content.

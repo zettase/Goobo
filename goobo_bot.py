@@ -45,10 +45,17 @@ class MyClient(discord.Client):
             return
         database.handle_reaction_remove(reaction, user)
 
+    async def on_presence_update(self, before, after):
+        #if before.raw_status != after.raw_status:
+        if before.status != after.status:
+            database.store_status_change(after.id, before, after)
+
 intents = discord.Intents.default()
 intents.message_content = True
 intents.messages = True  # This is important for the bot to be able to read messages
 intents.reactions = True
+intents.presences = True
+intents.members = True
 
 # Create an instance of your bot and run it
 client = MyClient(intents=intents)
