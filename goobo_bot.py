@@ -30,11 +30,11 @@ class MyClient(discord.Client):
             await message.channel.send(f'Beeboobee? That\'s what Turt is.')
 
         # Check if message content matches ":kirby_sleep:" - Turt's goodnight response
-        if re.match(r':kirby_sleep:', message.content, re.IGNORECASE):
+        if re.search(r':kirby_sleep:', message.content, re.IGNORECASE):
             await message.channel.send(f'Buenas noches por favor.')
 
         # Check if message content matches ":wave_crazy:" - Turt's morning response
-        if re.match(r':wave_crazy:', message.content, re.IGNORECASE):
+        if re.search(r':wave_crazy:', message.content, re.IGNORECASE):
             await message.channel.send(f':sun_with_face: Hola muchacho~ :sun_with_face:')
 
     async def on_message_edit(self, before, after):
