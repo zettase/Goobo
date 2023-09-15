@@ -11,12 +11,16 @@ class DiscordDataReader:
             f"mongodb+srv://vargonian:{password}@goobocluster.fkg5wrq.mongodb.net/?retryWrites=true&w=majority")
         self.db = self.client[db_name]
 
-    def get_messages(self):
+    def get_messages(self, limit=None):
         """
-        Returns all messages stored in the database in ascending date order.
+        Returns messages stored in the database in ascending date order.
+        If limit is provided, only that many latest messages will be returned.
         """
         collection = self.db['messages']
-        return list(collection.find({}).sort("timestamp", pymongo.ASCENDING))
+        cursor = collection.find({}).sort("timestamp", pymongo.ASCENDING)
+        if limit is not None:
+            cursor = cursor.limit(limit)
+        return list(cursor)
 
     def get_status_changes(self):
         """
