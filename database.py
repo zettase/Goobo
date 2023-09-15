@@ -33,6 +33,12 @@ class Database:
         return doc['count'] if doc else 0
 
     def store_message(self, message):
+
+        # Check if the message is from a guild (server) or a DM
+        if message.guild:
+            guild_id = str(message.guild.id)
+        else:
+            guild_id = "DM"
         """
         Store the provided Discord message in the database.
 
@@ -43,7 +49,7 @@ class Database:
 
         # Constructing the data to insert
         message_data = {
-            "guild_id": str(message.guild.id),
+            "guild_id": str(guild_id),
             "channel_id": str(message.channel.id),
             "message_id": str(message.id),
             "author_id": str(message.author.id),
