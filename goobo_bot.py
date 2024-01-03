@@ -26,6 +26,10 @@ class MyClient(discord.Client):
             nickname = message.author.display_name
             await message.channel.send(f'Hello, {nickname}!')
 
+        if re.match(r'Hello my love', message.content, re.IGNORECASE):
+            nickname = message.author.display_name
+            await message.channel.send(f'Hello, {nickname}!')
+
         if re.match(r'Beeboobee', message.content, re.IGNORECASE):
             await message.channel.send(f'Beeboobee? That\'s what Turt is.')
 
